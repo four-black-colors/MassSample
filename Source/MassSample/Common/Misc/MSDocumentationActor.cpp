@@ -13,20 +13,12 @@ AMSDocumentationActor::AMSDocumentationActor()
 	PrimaryActorTick.bCanEverTick = false;
 }
 
-void AMSDocumentationActor::NavigateToFunctionSource(const FString SymbolName, const FString ModuleName)
+void AMSDocumentationActor::NavigateToFunctionSource(const FString& SymbolName, const FString& ModuleName)
 {
-	FString ModuleFileName = FModuleManager::Get().GetModuleFilename(FName(ModuleName));
-	
-	ModuleFileName = FPaths::GetBaseFilename(ModuleFileName);
 #if WITH_EDITOR
+	FString ModuleFileName = FModuleManager::Get().GetModuleFilename(FName(ModuleName));
+	ModuleFileName = FPaths::GetBaseFilename(ModuleFileName);
+
 	FSourceCodeNavigation::NavigateToFunctionSourceAsync( SymbolName, ModuleFileName, false);
 #endif
-	
 }
-// Called when the game starts or when spawned
-void AMSDocumentationActor::BeginPlay()
-{
-	Super::BeginPlay();
-	
-}
-
