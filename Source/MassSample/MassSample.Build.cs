@@ -24,7 +24,9 @@ public class MassSample : ModuleRules
 				"Core",
 				"CoreUObject",
 				"Engine",
-				"InputCore"
+				"InputCore",
+				"ChaosCore",
+				"GeometryCore"
 			}
 		);
 
@@ -52,7 +54,6 @@ public class MassSample : ModuleRules
 				"MassZoneGraphNavigation",
 				"Niagara",
 				"DeveloperSettings",
-				"GeometryCore",
 
 				//todo: maybe do thee editor only stuff on another module?
 				"UnrealEd"

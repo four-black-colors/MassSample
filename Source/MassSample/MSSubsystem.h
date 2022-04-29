@@ -6,6 +6,7 @@
 #include "UObject/ObjectPtr.h"
 #include "MassEntitySubsystem.h"
 #include "Common/Fragments/MSHashGridFragments.h"
+#include "Common/Types/MSTypes.h"
 #include "MSSubsystem.generated.h"
 
 /**
