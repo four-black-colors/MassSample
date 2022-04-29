@@ -6,6 +6,11 @@
 #include "GameFramework/Character.h"
 #include "MSCharacter.generated.h"
 
+// Forward declares
+class USpringArmComponent;
+class UCameraComponent;
+class UInputComponent;
+
 UCLASS(config=Game)
 class AMSCharacter : public ACharacter
 {
@@ -13,37 +18,49 @@ class AMSCharacter : public ACharacter
 
 	/** Camera boom positioning the camera behind the character */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
-	class USpringArmComponent* CameraBoom;
+	TObjectPtr<USpringArmComponent> CameraBoom;
 
 	/** Follow camera */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
-	class UCameraComponent* FollowCamera;
+	TObjectPtr<UCameraComponent> FollowCamera;
+
 public:
-	AMSCharacter();
 
 	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Input)
 	float TurnRateGamepad;
 
+	AMSCharacter();
+
+	/** Returns CameraBoom subobject **/
+	FORCEINLINE USpringArmComponent* GetCameraBoom() const { return CameraBoom.Get(); }
+
+	/** Returns FollowCamera subobject **/
+	FORCEINLINE UCameraComponent* GetFollowCamera() const { return FollowCamera.Get(); }
+
 protected:
 
+	// APawn interface
+	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
+	// End of APawn interface
+
 	/** Called for forwards/backward input */
-	void MoveForward(float Value);
+	void MoveForward(const float Value);
 
 	/** Called for side to side input */
-	void MoveRight(float Value);
-
-	/** 
-	 * Called via input to turn at a given rate. 
-	 * @param Rate	This is a normalized rate, i.e. 1.0 means 100% of desired turn rate
-	 */
-	void TurnAtRate(float Rate);
+	void MoveRight(const float Value);
 
 	/**
-	 * Called via input to turn look up/down at a given rate. 
+	 * Called via input to turn at a given rate.
 	 * @param Rate	This is a normalized rate, i.e. 1.0 means 100% of desired turn rate
 	 */
-	void LookUpAtRate(float Rate);
+	void TurnAtRate(const float Rate);
+
+	/**
+	 * Called via input to turn look up/down at a given rate.
+	 * @param Rate	This is a normalized rate, i.e. 1.0 means 100% of desired turn rate
+	 */
+	void LookUpAtRate(const float Rate);
 
 	/** Handler for when a touch input begins. */
 	void TouchStarted(ETouchIndex::Type FingerIndex, FVector Location);
@@ -51,15 +68,6 @@ protected:
 	/** Handler for when a touch input stops. */
 	void TouchStopped(ETouchIndex::Type FingerIndex, FVector Location);
 
-protected:
-	// APawn interface
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-	// End of APawn interface
 
-public:
-	/** Returns CameraBoom subobject **/
-	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
-	/** Returns FollowCamera subobject **/
-	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
+
 };
-
