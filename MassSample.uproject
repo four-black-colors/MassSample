@@ -1,8 +1,8 @@
 {
 	"FileVersion": 3,
 	"EngineAssociation": "5.0",
-	"Category": "",
-	"Description": "",
+	"Category": "Community",
+	"Description": "Example community driven project that demonstrates use of Epic's new MassEntity framework.",
 	"Modules": [
 		{
 			"Name": "MassSample",
@@ -32,6 +32,22 @@
 		},
 		{
 			"Name": "MassCrowd",
+			"Enabled": true
+		},
+		{
+			"Name": "StructUtils",
+			"Enabled": true
+		},
+		{
+			"Name": "ZoneGraph",
+			"Enabled": true
+		},
+		{
+			"Name": "ZoneGraphAnnotations",
+			"Enabled": true
+		},
+		{
+			"Name": "Niagara",
 			"Enabled": true
 		}
 	]

@@ -6,29 +6,29 @@ public class MassSample : ModuleRules
 {
 	public MassSample(ReadOnlyTargetRules Target) : base(Target)
 	{
-        PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
-        
+		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
+
 		PublicIncludePaths.AddRange(
-            new string[] {
-                "MassSample"
-            }
-        );
-
-        PrivateIncludePaths.AddRange(
-            new string[] {
-            }
-        );
-
-        PublicDependencyModuleNames.AddRange(
-			new string[] { 
-				"Core", 
-				"CoreUObject", 
-				"Engine", 
-				"InputCore" 
+			new string[] {
+				"MassSample"
 			}
 		);
 
-        PrivateDependencyModuleNames.AddRange(
+		PrivateIncludePaths.AddRange(
+			new string[] {
+			}
+		);
+
+		PublicDependencyModuleNames.AddRange(
+			new string[] {
+				"Core",
+				"CoreUObject",
+				"Engine",
+				"InputCore"
+			}
+		);
+
+		PrivateDependencyModuleNames.AddRange(
 			new string[] {
 				"MassEntity",
 				"StructUtils",
@@ -43,17 +43,17 @@ public class MassSample : ModuleRules
 				"MassRepresentation",
 				"MassReplication",
 				"MassNavigation",
-				//needed for replication setup
+				// Needed for replication setup
 				"NetCore",
 				"AIModule",
 
 				"ZoneGraph",
 				"MassGameplayDebug",
-				"MassZoneGraphNavigation", 
+				"MassZoneGraphNavigation",
 				"Niagara",
 				"DeveloperSettings",
 				"GeometryCore",
-				
+
 				//todo: maybe do thee editor only stuff on another module?
 				"UnrealEd"
 			}
