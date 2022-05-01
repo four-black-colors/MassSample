@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "MassRepresentationProcessor.h"
-
 #include "MSVisualizationSample.generated.h"
 
 
@@ -18,4 +17,3 @@ class MASSSAMPLE_API UMSSampleVisualizationProcessor : public UMassVisualization
 public:
 	UMSSampleVisualizationProcessor();
 };
-

@@ -5,7 +5,6 @@
 #include "CoreMinimal.h"
 #include "InstancedStruct.h"
 #include "MassEntityTraitBase.h"
-#include "UObject/Object.h"
 #include "MSAssortedTags.generated.h"
 
 /**
@@ -15,8 +14,10 @@ UCLASS(meta=(DisplayName="Assorted Tags"))
 class MASSSAMPLE_API UMSAssortedTags : public UMassEntityTraitBase
 {
 	GENERATED_BODY()
-	virtual void BuildTemplate(FMassEntityTemplateBuildContext& BuildContext, UWorld& World) const override;
 
+public:
 	UPROPERTY(EditAnywhere, meta = (BaseStruct = "MassTag", ExcludeBaseStruct))
 	TArray<FInstancedStruct> Tags;
+
+	virtual void BuildTemplate(FMassEntityTemplateBuildContext& BuildContext, UWorld& World) const override;
 };

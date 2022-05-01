@@ -8,9 +8,8 @@
 #include "MSActorMassTrait.generated.h"
 
 /**
- * 
+ *
  */
-
 UCLASS(meta = (DisplayName = "Sample Actor Trait"))
 class MASSSAMPLE_API UMSActorMassTrait : public UMassEntityTraitBase
 {
@@ -18,7 +17,4 @@ class MASSSAMPLE_API UMSActorMassTrait : public UMassEntityTraitBase
 
 protected:
 	virtual void BuildTemplate(FMassEntityTemplateBuildContext& BuildContext, UWorld& World) const override;
-	
-	
 };
-

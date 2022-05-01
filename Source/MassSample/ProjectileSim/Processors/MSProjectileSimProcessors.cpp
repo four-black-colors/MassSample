@@ -13,7 +13,7 @@
 
 void UMSProjectileSimProcessors::Initialize(UObject& Owner)
 {
-	
+
 }
 
 
@@ -39,12 +39,12 @@ void UMSProjectileSimProcessors::ConfigureQueries()
 void UMSProjectileSimProcessors::Execute(UMassEntitySubsystem& EntitySubsystem, FMassExecutionContext& Context)
 {
 
-	
+
 	LineTraceFromPreviousPosition.ForEachEntityChunk(EntitySubsystem,Context,[this](FMassExecutionContext& Context)
 	{
 		QUICK_SCOPE_CYCLE_COUNTER(STAT_MASS_LineTraceFromPreviousPosition);
 
-		
+
 		const auto Linetraces = Context.GetMutableFragmentView<FLineTraceFragment>();
 		const auto Velocities = Context.GetFragmentView<FMassVelocityFragment>();
 		const auto Transforms = Context.GetFragmentView<FTransformFragment>();
@@ -57,23 +57,23 @@ void UMSProjectileSimProcessors::Execute(UMassEntitySubsystem& EntitySubsystem, 
 			FHitResult HitResult;
 
 			FVector CurrentLocation = Transforms[i].GetTransform().GetTranslation();
-			
+
 			//If we hit something, add a new fragment with the data!
 			if(GetWorld()->
 				LineTraceSingleByChannel(
 					HitResult,
-					
+
 					CurrentLocation - Velocities[i].Value,
 					CurrentLocation,
 					ECollisionChannel::ECC_Camera,
 					Linetraces[i].QueryParams
 				))
 			{
-		
+
 				FMassEntityHandle Entity = Context.GetEntity(i);
-				
+
 				FConstStructView HitResultConstStruct = FConstStructView::Make(FHitResultFragment(HitResult));
-		
+
 				Context.Defer().PushCommand(FCommandAddFragmentInstance(Entity, HitResultConstStruct));
 			}
 		}
@@ -82,7 +82,7 @@ void UMSProjectileSimProcessors::Execute(UMassEntitySubsystem& EntitySubsystem, 
 
 
 
-		
+
 	MyQuery.ForEachEntityChunk(EntitySubsystem, Context, [](FMassExecutionContext& Context)
 	{
 		const TArrayView<FSampleColorFragment> OptionalFragmentList = Context.GetMutableFragmentView<FSampleColorFragment>();
@@ -95,13 +95,13 @@ void UMSProjectileSimProcessors::Execute(UMassEntitySubsystem& EntitySubsystem, 
 				// Now that we know it is safe to do so, we can compute
 ;			UE_LOG( LogTemp, Error, TEXT("optional hit!"));
 
-			}		
+			}
 		}
 	});
 
 
-	
 
 
-		
+
+
 }

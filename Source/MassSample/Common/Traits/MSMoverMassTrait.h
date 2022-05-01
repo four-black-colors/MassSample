@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "MassEntityTraitBase.h"
-#include "UObject/Object.h"
 #include "MSMoverMassTrait.generated.h"
 
 /**
@@ -15,10 +14,10 @@ class MASSSAMPLE_API UMSMoverMassTrait : public UMassEntityTraitBase
 {
 	GENERATED_BODY()
 
-protected:
+public:
 	virtual void BuildTemplate(FMassEntityTemplateBuildContext& BuildContext, UWorld& World) const override;
 
+protected:
 	UPROPERTY(EditAnywhere, Category = "Mass")
 	FVector Force = {0,0,100.0f};
-
 };

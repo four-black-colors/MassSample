@@ -6,11 +6,11 @@
 #include "MassProcessor.h"
 #include "MSMovementProcessor.generated.h"
 
-// FIXME: This hello world is perfect as is, we just need to investigate the velocity fragment missbehav and document it.
+// FIXME: This hello world is perfect as is, we just need to investigate the velocity fragment missbehaving and document it.
 
 /**
  * Example processor demonstrating how to move entities found in query
- * Processors are called "Systems" in most ECS libraries. 
+ * Processors are called "Systems" in most ECS libraries.
  */
 UCLASS()
 class MASSSAMPLE_API UMSMovementProcessor : public UMassProcessor
@@ -20,13 +20,9 @@ public:
 	UMSMovementProcessor();
 
 protected:
+	// Note that we declare this ourselves! You can have many queries if need be.
+	FMassEntityQuery MovementEntityQuery;
+
 	virtual void ConfigureQueries() override;
 	virtual void Execute(UMassEntitySubsystem& EntitySubsystem, FMassExecutionContext& Context) override;
-
-	
-	//Note that we declare this ourselves! You can have many queries if need be.
-	FMassEntityQuery MovementEntityQuery;
-	
-	
 };
-

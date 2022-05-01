@@ -4,14 +4,14 @@
 
 #include "MassCommonFragments.h"
 #include "MassCommonTypes.h"
-#include "Common/Fragments/MSHashGridFragments.h"
+#include "Common/MSTags.h"
+#include "Common/Fragments/MSFragments.h"
 
 
 UMSHashGridProcessor::UMSHashGridProcessor()
 {
-	
 	ExecutionOrder.ExecuteAfter.Add(UE::Mass::ProcessorGroupNames::Movement);
-	ExecutionFlags = (int32)EProcessorExecutionFlags::All;
+	ExecutionFlags = static_cast<int32>(EProcessorExecutionFlags::All);
 }
 
 void UMSHashGridProcessor::Initialize(UObject& Owner)
@@ -21,15 +21,13 @@ void UMSHashGridProcessor::Initialize(UObject& Owner)
 
 void UMSHashGridProcessor::ConfigureQueries()
 {
-	UpdateHashGridQuery.AddRequirement<FTransformFragment>(EMassFragmentAccess::ReadOnly);
-	UpdateHashGridQuery.AddRequirement<FMSGridCellStartingLocationFragment>(EMassFragmentAccess::ReadWrite);
+	UpdateHashGridQuery.AddRequirement<FTransformFragment>(EMassFragmentAccess::ReadOnly, EMassFragmentPresence::All);
+	UpdateHashGridQuery.AddRequirement<FMSGridCellStartingLocationFragment>(EMassFragmentAccess::ReadWrite, EMassFragmentPresence::All);
 	UpdateHashGridQuery.AddTagRequirement<FMSInHashGridTag>(EMassFragmentPresence::All);
 }
 
 void UMSHashGridProcessor::Execute(UMassEntitySubsystem& EntitySubsystem, FMassExecutionContext& Context)
 {
-	
-	
 	UpdateHashGridQuery.ForEachEntityChunk(EntitySubsystem, Context, [this](FMassExecutionContext& Context)
 	{
 		const int32 NumEntities = Context.GetNumEntities();
@@ -51,34 +49,28 @@ UMSHashGridMemberInitializationProcessor::UMSHashGridMemberInitializationProcess
 {
 	ObservedType = FMSGridCellStartingLocationFragment::StaticStruct();
 	Operation = EMassObservedOperation::Add;
-
 }
 
 void UMSHashGridMemberInitializationProcessor::Initialize(UObject& Owner)
 {
-
 	MassSampleSystem = GetWorld()->GetSubsystem<UMSSubsystem>();
-	
 }
 
 void UMSHashGridMemberInitializationProcessor::ConfigureQueries()
 {
 	EntityQuery.AddRequirement<FMSGridCellStartingLocationFragment>(EMassFragmentAccess::ReadOnly);
 	EntityQuery.AddRequirement<FTransformFragment>(EMassFragmentAccess::ReadOnly);
-
 }
 
 void UMSHashGridMemberInitializationProcessor::Execute(UMassEntitySubsystem& EntitySubsystem, FMassExecutionContext& Context)
 {
-
 	EntityQuery.ForEachEntityChunk(EntitySubsystem, Context, [&](FMassExecutionContext& Context)
 	{
-		
 		const auto LocationList = Context.GetFragmentView<FTransformFragment>();
 		const auto NavigationObstacleCellLocationList = Context.GetMutableFragmentView<FMSGridCellStartingLocationFragment>();
 
 		const int32 NumEntities = Context.GetNumEntities();
-		
+
 		for (int32 i = 0; i < NumEntities; ++i)
 		{
 			const FVector& Location = LocationList[i].GetTransform().GetLocation();
@@ -86,10 +78,8 @@ void UMSHashGridMemberInitializationProcessor::Execute(UMassEntitySubsystem& Ent
 			MassSampleSystem->HashGrid.InsertPoint(Context.GetEntity(i),Location);
 
 			NavigationObstacleCellLocationList[i].Location = Location;
-			
+
 			Context.Defer().AddTag<FMSInHashGridTag>(Context.GetEntity(i));
 		}
 	});
-
-	
 }

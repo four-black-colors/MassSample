@@ -7,7 +7,7 @@
 #include "MassEntitySubsystem.h"
 #include "MassMovementFragments.h"
 #include "Common/Fragments/MSFragments.h"
-#include "Example/MassVelocityRandomizerTrait.h"
+#include "Common/MSTags.h"
 
 
 void UMSSubsystem::Initialize(FSubsystemCollectionBase& Collection)
@@ -38,7 +38,7 @@ int32 UMSSubsystem::SpawnEntity()
 	EntitySystem->AddFragmentToEntity(NewEntity, FSampleColorFragment::StaticStruct());
 
 	// How about changing data on a fragment?
-	EntitySystem->GetFragmentDataChecked<FMassVelocityFragment>(NewEntity).Value = FMath::VRand()*100.0f;
+	EntitySystem->GetFragmentDataChecked<FMassVelocityFragment>(NewEntity).Value = FMath::VRand() * 100.0;
 	EntitySystem->GetFragmentDataChecked<FSampleColorFragment>(NewEntity).Color = FColor::Blue;
 
 	// Calling mass.PrintEntityFragments 1 in editor should reveal this entity's fragments! For example:

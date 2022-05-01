@@ -4,11 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "MassObserverProcessor.h"
-#include "UObject/Object.h"
 #include "MSObserverSamples.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
 class MASSSAMPLE_API UMSObserverOnAdd : public UMassObserverProcessor
@@ -16,12 +15,10 @@ class MASSSAMPLE_API UMSObserverOnAdd : public UMassObserverProcessor
 	GENERATED_BODY()
 public:
 	UMSObserverOnAdd();
-	
-protected:
-	
-	virtual void ConfigureQueries() override;
-	
-	virtual void Execute(UMassEntitySubsystem& EntitySubsystem, FMassExecutionContext& Context) override;
 
+protected:
 	FMassEntityQuery EntityQuery;
+
+	virtual void ConfigureQueries() override;
+	virtual void Execute(UMassEntitySubsystem& EntitySubsystem, FMassExecutionContext& Context) override;
 };

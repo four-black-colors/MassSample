@@ -7,10 +7,10 @@
 
 #include "MassCommonFragments.h"
 #include "MassProcessor.h"
-#include "Common/Fragments/MSFragments.h"
+#include "Common/MSTags.h"
 #include "MSDebugPrintProcessors.generated.h"
 /**
- * 
+ *
  */
 UCLASS()
 class MASSSAMPLE_API UMSDebugPrintProcessors : public UMassProcessor
@@ -31,11 +31,11 @@ protected:
 		{
 			const auto Transforms = Context.GetFragmentView<FTransformFragment>().GetData();
 
-			
+
 			auto e = Context.GetEntity(0);
 			FStringOutputDevice description;
 			EntitySubsystem.DebugGetStringDesc(EntitySubsystem.GetArchetypeForEntity(e),description);
-			
+
 			for (int32 i = 0; i < Context.GetNumEntities(); ++i)
 			{
 				auto location = Transforms[i].GetTransform().GetTranslation();
@@ -46,7 +46,7 @@ protected:
 			}
 		});
 	}
-	
+
 	FMassEntityQuery DebugPointDisplay;
 
 };

@@ -10,34 +10,24 @@
  * FMassFragments are simple structs that can hold data.
  * If you want to, it is possible to add functions as well for getter/setters and the like.
  */
-USTRUCT()
+
+// Simple fragment that stores color value
+USTRUCT(BlueprintType)
 struct MASSSAMPLE_API FSampleColorFragment : public FMassFragment
 {
 	GENERATED_BODY()
-	
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	FColor Color = FColor::Red;
 };
 
 
-/**
- * FMassTags are structs that exist only as tags on Mass entities. They cannot have data!
- * Mostly used for filtering. They can be queried for to only include certain entities etc.
- */
-//*** TAGS ***//
-USTRUCT()
-struct MASSSAMPLE_API FMoverTag : public FMassTag
+// This entity's starting location on our 3D hash-grid this frame.
+USTRUCT(BlueprintType)
+struct MASSSAMPLE_API FMSGridCellStartingLocationFragment : public FMassFragment
 {
 	GENERATED_BODY()
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	FVector Location;
 };
-USTRUCT()
-struct MASSSAMPLE_API FMassSampleDebuggableTag : public FMassTag
-{
-	GENERATED_BODY()
-};
-
-
-
-
-
-
-
